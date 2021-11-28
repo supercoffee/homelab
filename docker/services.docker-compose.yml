@@ -1,0 +1,18 @@
+---
+
+version: "3.7"
+
+services:
+  unifi:
+    image: "lscr.io/linuxserver/unifi-controller"
+    restart: unless-stopped
+    volumes:
+      - unifi_data:/config
+    ports:
+    - "3478:3478/udp"
+    - "10001:10001/udp"
+    - "8080:8080"
+    - "8443:8443"
+
+volumes:
+  unifi_data:
