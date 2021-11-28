@@ -13,6 +13,18 @@ services:
     - "10001:10001/udp"
     - "8080:8080"
     - "8443:8443"
-
+  pihole:
+    image: "pihole/pihole:latest"
+    restart: unless-stopped
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8888:80/tcp"
+    volumes:
+      - 'pihole_etc:/etc/pihole/'
+      - 'pihole_dnsmasq:/etc/dnsmasq.d/'
 volumes:
   unifi_data:
+  pihole_etc:
+  pihole_dnsmasq:
