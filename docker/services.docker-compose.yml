@@ -17,8 +17,8 @@ services:
     image: "pihole/pihole:latest"
     restart: unless-stopped
     environment:
-      - TZ:$TZ
-      - WEBPASSWORD:$PIHOLE_ADMIN_PW
+      - "TZ=${TZ}"
+      - "WEBPASSWORD=${PIHOLE_ADMIN_PW}"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
