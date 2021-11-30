@@ -1,0 +1,16 @@
+---
+
+- name: set up docker host
+  hosts: docker-host.lan.bendaschel.com
+  tasks:
+    - name: install cifs-utils
+      community.general.apk:
+        name: "cifs-utils"
+        update_cache: yes
+    - name: Mount Media directory
+      ansible.posix.mount:
+        path: /mnt/media
+        src: //badassnasng/media
+        fstype: cifs
+        opts: rw,file_mode=0755,dir_mode=0755
+        state: present
