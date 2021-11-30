@@ -32,7 +32,6 @@ services:
     volumes:
       - 'pihole_etc:/etc/pihole/'
       - 'pihole_dnsmasq:/etc/dnsmasq.d/'
-      -
   plex:
     image: lscr.io/linuxserver/plex
     container_name: plex
