@@ -32,7 +32,21 @@ services:
     volumes:
       - 'pihole_etc:/etc/pihole/'
       - 'pihole_dnsmasq:/etc/dnsmasq.d/'
+      -
+  plex:
+    image: lscr.io/linuxserver/plex
+    container_name: plex
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - "PLEX_CLAIM=${PLEX_CLAIM}"
+    volumes:
+      - plex_library:/config
 volumes:
   unifi_data:
   pihole_etc:
   pihole_dnsmasq:
+  plex_library:
