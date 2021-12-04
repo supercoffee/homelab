@@ -36,7 +36,6 @@ services:
     image: lscr.io/linuxserver/plex
     container_name: plex
     network_mode: host
-    restart: unless-stopped
     environment:
       - PUID=1000
       - PGID=1000
@@ -44,6 +43,11 @@ services:
       - "PLEX_CLAIM=${PLEX_CLAIM}"
     volumes:
       - plex_library:/config
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - "node.hostname==docker-host-2"
 volumes:
   unifi_data:
   pihole_etc:
