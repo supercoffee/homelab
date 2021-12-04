@@ -35,12 +35,13 @@ services:
   plex:
     image: lscr.io/linuxserver/plex
     container_name: plex
-    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
       - "PLEX_CLAIM=${PLEX_CLAIM}"
+    networks:
+      - host
     volumes:
       - plex_library:/config
     deploy:
@@ -53,3 +54,8 @@ volumes:
   pihole_etc:
   pihole_dnsmasq:
   plex_library:
+
+networks:
+  host:
+    name: host
+    external: true
