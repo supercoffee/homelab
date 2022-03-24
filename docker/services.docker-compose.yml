@@ -45,11 +45,8 @@ services:
     volumes:
       - plex_library:/config
       - /mnt/media:/media
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - "node.hostname==docker-host-2"
+    restart: unless-stopped
+
   proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
