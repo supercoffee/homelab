@@ -9,6 +9,8 @@ services:
     volumes:
       - unifi_data:/config
     network_mode: host
+    networks:
+      host:
 
   pihole:
     image: "pihole/pihole:latest"
