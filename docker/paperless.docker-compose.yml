@@ -66,7 +66,7 @@ services:
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
-      PAPERLESS_CONSUMER_POLLING: true
+      PAPERLESS_CONSUMER_POLLING: 1
 
 
 volumes:
