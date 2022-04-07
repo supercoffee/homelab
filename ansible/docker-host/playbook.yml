@@ -7,10 +7,19 @@
       community.general.apk:
         name: "cifs-utils"
         update_cache: yes
-    - name: Mount Media directory
+
+    - name: mount media directory
       ansible.posix.mount:
         path: /mnt/media
-        src: //badassnasng/media
+        src: //media-nas.lan.bendaschel.com/media
         fstype: cifs
-        opts: rw,file_mode=0755,dir_mode=0755
+        opts: uid=1000,gid=1000,rw,file_mode=0775,dir_mode=0775,guest
+        state: present
+
+    - name: mount paperless directory
+      ansible.posix.mount:
+        path: /mnt/apps/paperless
+        src: //badassnasng.lan.bendaschel.com/paperless
+        fstype: cifs
+        opts: uid=1000,gid=1000,rw,file_mode=0775,dir_mode=0775,username=paperless
         state: present
