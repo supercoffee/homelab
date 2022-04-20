@@ -60,8 +60,8 @@ services:
     volumes:
       - data:/usr/src/paperless/data
       - media:/usr/src/paperless/media
-      - /mnt/apps/paperless/export:/usr/src/paperless/export
-      - /mnt/apps/paperless/consume:/usr/src/paperless/consume
+      - export:/usr/src/paperless/export
+      - consume:/usr/src/paperless/consume
     environment:
       PAPERLESS_REDIS: redis://broker:6379
       PAPERLESS_DBHOST: db
@@ -73,3 +73,5 @@ volumes:
   media:
   pgdata:
   redisdata:
+  export:
+  consume:
