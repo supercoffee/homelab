@@ -41,21 +41,6 @@ services:
       - /mnt/media:/media
     restart: unless-stopped
 
-  proxy-manager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - proxy_manager_data:/data
-      - lets_encrypt_data:/etc/letsencrypt
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - "node.role==manager"
 volumes:
   unifi_data:
   pihole_etc:
