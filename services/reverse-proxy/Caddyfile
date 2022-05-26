@@ -8,3 +8,20 @@ status.lan.bendaschel.com {
     reverse_proxy docker-host.lan.bendaschel.com:8765
 }
 
+plex.lan.bendaschel.com {
+     tls {
+         dns digitalocean {$DO_API_KEY}
+     }
+    reverse_proxy docker-host.lan.bendaschel.com:32400
+}
+
+unifi.lan.bendaschel.com {
+     tls {
+         dns digitalocean {$DO_API_KEY}
+     }
+    reverse_proxy https://docker-host.lan.bendaschel.com:8443 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
