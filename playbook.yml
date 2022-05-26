@@ -1,0 +1,44 @@
+---
+
+- name: set up docker host
+  hosts: docker-host.lan.bendaschel.com
+  vars_files:
+    - ./docker-host.config.yml
+  tasks:
+    - name: Create apps user
+      ansible.builtin.user:
+        name: apps
+        shell: /bin/bash
+        uid: 1001
+
+    - name: install cifs-utils
+      community.general.apk:
+        name: "cifs-utils"
+        update_cache: yes
+
+    - name: mount media directory
+      ansible.posix.mount:
+        path: /mnt/media
+        src: //media-nas.lan.bendaschel.com/media
+        fstype: cifs
+        opts: uid=1000,gid=1000,rw,file_mode=0775,dir_mode=0775,guest
+        state: present
+
+    - name: ensure directories for docker compose stacks
+      file:
+        state: directory
+        path: '/opt/services/{{item}}'
+      with_items: '{{ projects}}'
+
+
+    - name: copy docker compose files and configs
+      copy:
+        src: 'services/{{item}}/'
+        dest: '/opt/services/{{item}}'
+      with_items: '{{projects}}'
+
+    - name: docker compose up
+      community.docker.docker_compose:
+        project_src: '/opt/services/{{item}}'
+        state: present
+      with_items: '{{projects}}'

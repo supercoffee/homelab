@@ -5,8 +5,8 @@ version: "3.7"
 services:
   proxy:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./Dockerfile
     container_name: proxy
     ports:
       - "80:80"
