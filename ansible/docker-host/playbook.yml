@@ -32,6 +32,11 @@
         state: directory
         path: /opt/services/uptime-kuma
 
+    - name: make dirs for docker compose
+      file:
+        state: directory
+        path: /opt/services/reverse-proxy
+
     - name: copy docker compose files for paperless
       copy:
         src: files/paperless/docker-compose.yml
@@ -42,10 +47,25 @@
         src: files/uptime-kuma/docker-compose.yml
         dest: /opt/services/uptime-kuma/docker-compose.yml
 
+    - name: copy docker compose files for caddy
+      copy:
+        src: files/reverse-proxy/docker-compose.yml
+        dest: /opt/services/reverse-proxy/docker-compose.yml
+
     - name: copy docker compose env file
       copy:
         src: files/paperless/.env
         dest: /opt/services/paperless/.env
+
+    - name: copy docker compose env file
+      copy:
+        src: files/reverse-proxy/.env
+        dest: /opt/services/reverse-proxy/.env
+
+    - name: copy caddyfile
+      copy:
+        src: files/reverse-proxy/Caddyfile
+        dest: /opt/services/reverse-proxy/Caddyfile
 
     - name: docker compose paperless
       community.docker.docker_compose:
@@ -55,4 +75,9 @@
     - name: docker compose uptime kuma
       community.docker.docker_compose:
         project_src: /opt/services/uptime-kuma
+        state: present
+
+    - name: docker compose caddy
+      community.docker.docker_compose:
+        project_src: /opt/services/reverse-proxy
         state: present

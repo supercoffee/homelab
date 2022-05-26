@@ -1,0 +1,10 @@
+{
+    tls {
+        dns digitalocean ${DO_API_KEY}
+    }
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+status.lan.bendaschel.com {
+    reverse_proxy docker-host.lan.bendaschel.com:8765
+}
+
