@@ -46,19 +46,29 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    env_file:
+      - .env
     volumes:
       - data:/usr/src/paperless/data
-      - /mnt/apps/paperless/media:/usr/src/paperless/media
-      - /mnt/apps/paperless/export:/usr/src/paperless/export
-      - /mnt/apps/paperless/consume:/usr/src/paperless/consume
-    environment:
-      PAPERLESS_REDIS: redis://broker:6379
-      PAPERLESS_CONSUMER_POLLING: 1
-      PAPERLESS_ADMIN_PASSWORD: paperless
-      PAPERLESS_ADMIN_USER: admin
-      USERMAP_UID: 1001
-      USERMAP_GID: 1001
+      - media:/usr/src/paperless/media
+      - export:/usr/src/paperless/export
+      - consume:/usr/src/paperless/consume
 
 volumes:
   data:
   redisdata:
+  media:
+    driver_opts:
+      type: cifs
+      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      device: "${SMB_SHARE}/media"
+  export:
+    driver_opts:
+      type: cifs
+      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      device: "${SMB_SHARE}/export"
+  consume:
+    driver_opts:
+      type: cifs
+      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      device: "${SMB_SHARE}/consume"
