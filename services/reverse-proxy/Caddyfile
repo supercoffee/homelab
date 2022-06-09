@@ -25,3 +25,17 @@ unifi.lan.bendaschel.com {
         }
     }
 }
+
+dashboard.lan.bendaschel.com {
+     tls {
+         dns digitalocean {$DO_API_KEY}
+     }
+    reverse_proxy docker-host.lan.bendaschel.com:8080
+}
+
+paperless.lan.bendaschel.com {
+    tls {
+        dns digitalocean {$DO_API_KEY}
+    }
+    reverse_proxy docker-host.lan.bendaschel.com:8899
+}

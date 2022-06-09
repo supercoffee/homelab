@@ -12,20 +12,6 @@ services:
     networks:
       host:
 
-  pihole:
-    image: "pihole/pihole:latest"
-    restart: unless-stopped
-    environment:
-      - "TZ=${TZ}"
-      - "WEBPASSWORD=${PIHOLE_ADMIN_PW}"
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "8888:80/tcp"
-    volumes:
-      - 'pihole_etc:/etc/pihole/'
-      - 'pihole_dnsmasq:/etc/dnsmasq.d/'
   plex:
     image: lscr.io/linuxserver/plex
     container_name: plex
@@ -46,6 +32,10 @@ volumes:
   pihole_etc:
   pihole_dnsmasq:
   plex_library:
+    driver_opts:
+      type: cifs
+      device: "${SMB_SHARE}/MEDIA"
+      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
   lets_encrypt_data:
   proxy_manager_data:
 

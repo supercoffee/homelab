@@ -16,14 +16,6 @@
         name: "cifs-utils"
         update_cache: yes
 
-    - name: mount media directory
-      ansible.posix.mount:
-        path: /mnt/media
-        src: //media-nas.lan.bendaschel.com/media
-        fstype: cifs
-        opts: uid=1000,gid=1000,rw,file_mode=0775,dir_mode=0775,guest
-        state: present
-
     - name: ensure directories for docker compose stacks
       file:
         state: directory

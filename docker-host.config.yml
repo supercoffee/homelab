@@ -3,3 +3,5 @@ projects:
   - paperless
   - reverse-proxy
   - uptime-kuma
+  - plex
+  - heimdall

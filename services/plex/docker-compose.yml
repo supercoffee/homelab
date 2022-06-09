@@ -1,0 +1,26 @@
+---
+
+version: "3.7"
+
+services:
+  plex:
+    image: lscr.io/linuxserver/plex
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - "PLEX_CLAIM=${PLEX_CLAIM}"
+    volumes:
+      - plex_library:/config
+      - plex_media:/media
+    restart: unless-stopped
+    network_mode: host
+
+volumes:
+  plex_library:
+  plex_media:
+    driver_opts:
+      type: cifs
+      device: "${SMB_SHARE}/media"
+      o: "addr=badassnasng.lan.bendaschel.com,uid=1000,gid=1000,rw,file_mode=0775,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
