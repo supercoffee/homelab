@@ -1,6 +1,4 @@
-{
-    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
-}
+
 status.lan.bendaschel.com {
      tls {
          dns digitalocean {$DO_API_KEY}
@@ -38,4 +36,12 @@ paperless.lan.bendaschel.com {
         dns digitalocean {$DO_API_KEY}
     }
     reverse_proxy docker-host.lan.bendaschel.com:8899
+}
+
+grocy.lan.bendaschel.com {
+    tls {
+        dns digitalocean {$DO_API_KEY}
+    }
+    reverse_proxy docker-host.lan.bendaschel.com:9283
+
 }
