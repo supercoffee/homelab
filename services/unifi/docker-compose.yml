@@ -1,0 +1,33 @@
+---
+version: "3.7"
+services:
+  unifi-controller:
+    image: lscr.io/linuxserver/unifi-controller:7.1.66
+    container_name: unifi-controller
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MEM_LIMIT=2048 #optional
+      - MEM_STARTUP=2048 #optional
+    volumes:
+      - controller_data:/config
+#    ports:
+#      - 8443:8443
+#      - 3478:3478/udp
+#      - 10001:10001/udp
+#      - 8080:8080
+#      - 1900:1900/udp #optional
+#      - 8843:8843 #optional
+#      - 8880:8880 #optional
+#      - 6789:6789 #optional
+#      - 5514:5514/udp #optional
+    restart: unless-stopped
+    network_mode: host
+
+volumes:
+  controller_data:
+
+networks:
+  host:
+    name: host
+    external: true

@@ -4,5 +4,7 @@ projects:
   - reverse-proxy
   - uptime-kuma
   - plex
-  - heimdall
+#  - heimdall
   - grocy
+  - torrent
+  - unifi
