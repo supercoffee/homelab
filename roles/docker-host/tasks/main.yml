@@ -1,0 +1,31 @@
+---
+
+- name: Create apps user
+  ansible.builtin.user:
+    name: apps
+    shell: /bin/bash
+    uid: 1001
+
+- name: install cifs-utils
+  community.general.apk:
+    name: "cifs-utils"
+    update_cache: yes
+
+- name: ensure directories for docker compose stacks
+  file:
+    state: directory
+    path: '/opt/services/{{item}}'
+  with_items: '{{ projects}}'
+
+
+- name: copy docker compose files and configs
+  copy:
+    src: 'services/{{item}}/'
+    dest: '/opt/services/{{item}}'
+  with_items: '{{projects}}'
+
+- name: docker compose up
+  community.docker.docker_compose:
+    project_src: '/opt/services/{{item}}'
+    state: present
+  with_items: '{{projects}}'
