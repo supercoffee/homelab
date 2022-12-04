@@ -1,5 +1,10 @@
 ---
-all:
+docker-hosts:
   hosts:
     docker-host.lan.bendaschel.com:
+      ansible_user: root
+
+nas:
+  hosts:
+    nas2022.lan.bendaschel.com:
       ansible_user: root

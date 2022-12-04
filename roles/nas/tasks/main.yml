@@ -1,0 +1,13 @@
+---
+
+- name: Create Groups
+  ansible.builtin.group:
+    name: paperless
+    gid: 1001
+
+- name: Create NAS users
+  ansible.builtin.user:
+    name: paperless
+    uid: 1001
+    group: paperless
+

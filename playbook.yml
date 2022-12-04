@@ -1,8 +1,13 @@
 ---
 
 - name: set up docker host
-  hosts: docker-host.lan.bendaschel.com
+  hosts: docker-hosts
   vars_files:
     - ./docker-host.config.yml
   roles:
     - docker-host
+
+- name: set up NAS
+  hosts: nas
+  roles:
+    - nas
