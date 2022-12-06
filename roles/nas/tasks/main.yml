@@ -2,12 +2,12 @@
 
 - name: Create Groups
   ansible.builtin.group:
-    name: paperless
-    gid: 1001
+    name: '{{ item.group | default(item.name) }}'
+  with_items: '{{ nas_users }}'
 
 - name: Create NAS users
   ansible.builtin.user:
-    name: paperless
-    uid: 1001
-    group: paperless
+    name: '{{ item.name }}'
+    group: '{{ item.group | default(item.name) }}'
+  with_items: '{{ nas_users }}'
 

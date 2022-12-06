@@ -1,0 +1,21 @@
+
+projects:
+  - paperless
+  - reverse-proxy
+  - uptime-kuma
+  - plex
+  #  - heimdall
+  - grocy
+  - torrent
+  - unifi
+  - home-assistant
+  - pritunl
+
+
+nas_users:
+  - name: paperless
+    group: paperless
+  - name: proxmox
+    group: proxmox
+  - name: ben
+    group: ben

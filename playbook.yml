@@ -2,12 +2,14 @@
 
 - name: set up docker host
   hosts: docker-hosts
-  vars_files:
-    - ./docker-host.config.yml
   roles:
     - docker-host
+  tags:
+    - docker
 
 - name: set up NAS
   hosts: nas
   roles:
+    - nas
+  tags:
     - nas
