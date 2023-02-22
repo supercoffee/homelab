@@ -1,0 +1,27 @@
+---
+
+- name: install cifs-utils
+  ansible.builtin.apt:
+    name: "cifs-utils"
+    update_cache: yes
+  become: yes
+
+- name: Create storage mounts
+  ansible.posix.mount:
+    src: '//nas2022.lan.bendaschel.com/arm'
+    path: /mnt/media
+    fstype: cifs
+    opts: 'uid=1001,gid=1001,rw,file_mode=0775,dir_mode=0775,username={{ arm_smb_user }},password={{ arm_smb_password }}'
+    state: mounted
+  become: yes
+
+- name: Copy config files
+  ansible.builtin.template:
+    src: arm.yaml.j2
+    dest: /etc/arm/config/arm.yaml
+    owner: arm
+    group: arm
+    mode: '0755'
+  become: yes
+  notify:
+    - Restart Armui

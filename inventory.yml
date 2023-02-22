@@ -8,3 +8,8 @@ nas:
   hosts:
     nas2022.lan.bendaschel.com:
       ansible_user: root
+
+arm:
+  hosts:
+    arm.lan.bendaschel.com:
+      ansible_user: ben

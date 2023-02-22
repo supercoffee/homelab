@@ -1,0 +1,7 @@
+---
+
+- name: Restart Armui
+  ansible.builtin.service:
+    name: armui.service
+    state: restarted
+  become: yes

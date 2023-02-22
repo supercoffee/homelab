@@ -13,3 +13,10 @@
     - nas
   tags:
     - nas
+
+- name: set up ARM
+  hosts: arm
+  roles:
+    - ripper
+  tags:
+    - arm

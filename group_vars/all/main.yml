@@ -1,0 +1,41 @@
+---
+
+projects:
+  - paperless
+  - reverse-proxy
+  - uptime-kuma
+#  - plex
+  #  - heimdall
+#  - grocy
+#  - torrent
+  - unifi
+  - home-assistant
+  - pritunl
+  - satisfactory
+
+
+freenas_users:
+  - name: paperless
+    config:
+      username: paperless
+      full_name: paperless
+      group_create: true
+      password: "{{vault_paperless_user_password}}"
+      smb: true
+    state: present
+  - name: arm
+    config:
+      username: arm
+      full_name: arm
+      group_create: true
+      password: "{{vault_arm_smb_password}}"
+      smb: true
+    state: present
+#  - name: proxmox
+#    group: proxmox
+#  - name: ben
+#    group: ben
+
+arm_smb_user: arm
+arm_smb_password: "{{vault_arm_smb_password}}"
+arm_media_mount: '/mnt/media'

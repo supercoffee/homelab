@@ -35,7 +35,7 @@ services:
       - redisdata:/data
 
   webserver:
-    image: ghcr.io/paperless-ngx/paperless-ngx:1.7
+    image: ghcr.io/paperless-ngx/paperless-ngx:1.10.1
     restart: unless-stopped
     depends_on:
       - broker
@@ -60,15 +60,15 @@ volumes:
   media:
     driver_opts:
       type: cifs
-      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      o: "addr=${SMB_HOST},uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
       device: "${SMB_SHARE}/media"
   export:
     driver_opts:
       type: cifs
-      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      o: "addr=${SMB_HOST},uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
       device: "${SMB_SHARE}/export"
   consume:
     driver_opts:
       type: cifs
-      o: "addr=badassnasng.lan.bendaschel.com,uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
+      o: "addr=${SMB_HOST},uid=${USERMAP_UID},gid=${USERMAP_GID},rw,file_mode=0777,dir_mode=0775,username=${SMB_USER},password=${SMB_PASSWORD}"
       device: "${SMB_SHARE}/consume"
