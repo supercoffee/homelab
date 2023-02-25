@@ -22,6 +22,13 @@ services:
       resources:
         reservations:
           memory: 6G
-
+  file_browser:
+    image: 'filebrowser/filebrowser'
+    volumes:
+      - satisfactory_data:/srv
+      - ./filebrowser.db:/filebrowser.db
+      - ./filebrowser.json:/.filebrowser.json
+    ports:
+      - '8787:80'
 volumes:
   satisfactory_data:

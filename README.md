@@ -11,11 +11,22 @@ ansible-galaxy collection install community.docker
 
 ```
 
+## Usage 
+
 Use the docker-host playbook located in `ansible/docker-host` to provision the docker host
+
+### Configure all
+```shell
+
+ansible-playbook -i inventory.yml --ask-vault-pass playbook.yml
+```
+
+
+### Configure only docker hosts
 
 ```shell
 
-ansible-playbook -i inventory.yml playbook.yml
+ansible-playbook -i inventory.yml --tags=docker --ask-vault-pass playbook.yml
 ```
 
 ## Todos

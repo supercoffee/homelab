@@ -1,7 +1,11 @@
 ---
 docker-hosts:
   hosts:
-    docker-host.lan.bendaschel.com:
+    docker-host:
+      ansible_host: docker-host.lan.bendaschel.com
+      ansible_user: root
+    game-server:
+      ansible_host: games.lan.bendaschel.com
       ansible_user: root
 
 nas:

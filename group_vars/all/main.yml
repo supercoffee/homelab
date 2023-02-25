@@ -1,19 +1,5 @@
 ---
 
-projects:
-  - paperless
-  - reverse-proxy
-  - uptime-kuma
-#  - plex
-  #  - heimdall
-#  - grocy
-#  - torrent
-  - unifi
-  - home-assistant
-  - pritunl
-  - satisfactory
-
-
 freenas_users:
   - name: paperless
     config:
