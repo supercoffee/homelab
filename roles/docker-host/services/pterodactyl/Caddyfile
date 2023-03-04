@@ -1,8 +1,20 @@
-
+{
+    debug
+}
 
 {$APP_DOMAIN} {
      tls {
          dns digitalocean {$DO_API_KEY}
      }
     reverse_proxy panel
+}
+
+{$WINGS_DOMAIN} {
+    log {
+        level INFO
+    }
+    tls {
+        dns digitalocean {$DO_API_KEY}
+    }
+    reverse_proxy wings:8080
 }

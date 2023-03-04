@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - "/srv/pterodactyl/database:/var/lib/mysql"
+      - db_data:/var/lib/mysql
     env_file:
       - .env
   cache:
@@ -38,15 +38,43 @@ services:
       - database
       - cache
     volumes:
-      - "/srv/pterodactyl/var/:/app/var/"
-      - "/srv/pterodactyl/nginx/:/etc/nginx/http.d/"
-      - "/srv/pterodactyl/certs/:/etc/letsencrypt/"
-      - "/srv/pterodactyl/logs/:/app/storage/logs"
+      - panel_data:/app/var
+      - panel_logs:/app/storage/logs
+#      - "/srv/pterodactyl/var/:/app/var/"
+#      - "/srv/pterodactyl/nginx/:/etc/nginx/http.d/"
+#      - "/srv/pterodactyl/certs/:/etc/letsencrypt/"
+#      - "/srv/pterodactyl/logs/:/app/storage/logs"
+  wings:
+    image: ghcr.io/pterodactyl/wings:v1.6.1
+    restart: always
+    ports:
+#      - "8080:8080"
+      - "2022:2022"
+#      - "443:443"
+    tty: true
+    environment:
+      TZ: "UTC"
+      WINGS_UID: 988
+      WINGS_GID: 988
+      WINGS_USERNAME: pterodactyl
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/var/lib/docker/containers/:/var/lib/docker/containers/"
+      - "./wings/etc/pterodactyl/:/etc/pterodactyl/"
+      - "/var/lib/pterodactyl/:/var/lib/pterodactyl/"
+      - "/tmp/pterodactyl/:/tmp/pterodactyl/"
+#      - "/etc/ssl/certs:/etc/ssl/certs:ro"
+      # you may need /srv/daemon-data if you are upgrading from an old daemon
+      #- "/srv/daemon-data/:/srv/daemon-data/"
+      # Required for ssl if you use let's encrypt. uncomment to use.
+      #- "/etc/letsencrypt/:/etc/letsencrypt/"
 
 volumes:
   caddy_data:
   caddy_config:
-
+  panel_data:
+  panel_logs:
+  db_data:
 
 networks:
   default:
